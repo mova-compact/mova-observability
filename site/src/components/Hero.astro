@@ -1,0 +1,126 @@
+---
+---
+
+<section class="hero">
+  <div class="container hero-inner">
+    <img src="/logo.png" alt="MOVA" class="hero-logo" />
+    <span class="badge">Open Source &middot; v0.1</span>
+    <h1 class="hero-title">
+      Evidence-Grade<br />
+      <span class="accent">Dual Observability</span>
+    </h1>
+    <p class="hero-subtitle">
+      Deterministically stitch <strong>time</strong> and <strong>semantic</strong> event streams
+      into a single verifiable journal. 10x&ndash;16x compression. Vendor-agnostic. Zero dependencies.
+    </p>
+    <div class="hero-actions">
+      <a href="#download" class="btn btn-primary">Download</a>
+      <a href="#how-it-works" class="btn btn-outline">How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-value">10&ndash;16x</span>
+        <span class="stat-label">Compression</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">Coverage</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">0%</span>
+        <span class="stat-label">Wrong-Link Rate</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">3</span>
+        <span class="stat-label">Platforms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-logo {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 1rem;
+    object-fit: contain;
+  }
+
+  .hero {
+    padding: 6rem 0 4rem;
+    text-align: center;
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-top: 1.25rem;
+  }
+
+  .accent {
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-top: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .hero-subtitle strong {
+    color: var(--text);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 640px) {
+    .hero-stats {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+  }
+</style>

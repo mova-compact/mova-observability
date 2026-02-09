@@ -1,0 +1,99 @@
+---
+const REPO = "mova-compact/mova-compact";
+const VERSION = "latest";
+---
+
+<section id="download" class="section">
+  <div class="container">
+    <h2 class="section-title">Download</h2>
+    <p class="section-subtitle">
+      Single executable, no dependencies. Pick your platform.
+    </p>
+
+    <div class="card download-card">
+      <div class="tabs" role="tablist">
+        <button class="tab-btn" role="tab" aria-selected="true" data-tab="linux">Linux</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="macos">macOS</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="windows">Windows</button>
+      </div>
+
+      <div class="tab-panel" id="panel-linux" data-active>
+        <pre><code>{`# Download & install
+curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-linux.zip -o mova-compact.zip
+unzip mova-compact.zip && chmod +x mova-compact
+sudo mv mova-compact /usr/local/bin/
+
+# Verify
+mova-compact --version
+sha256sum mova-compact`}</code></pre>
+      </div>
+
+      <div class="tab-panel" id="panel-macos">
+        <pre><code>{`# Download & install
+curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-macos.zip -o mova-compact.zip
+unzip mova-compact.zip && chmod +x mova-compact
+sudo mv mova-compact /usr/local/bin/
+
+# Verify
+mova-compact --version
+shasum -a 256 mova-compact`}</code></pre>
+      </div>
+
+      <div class="tab-panel" id="panel-windows">
+        <pre><code>{`# Download & extract (PowerShell)
+Invoke-WebRequest -Uri "https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-windows.zip" -OutFile mova-compact.zip
+Expand-Archive mova-compact.zip -DestinationPath .
+
+# Verify
+.\\mova-compact.exe --version
+Get-FileHash .\\mova-compact.exe -Algorithm SHA256`}</code></pre>
+      </div>
+
+      <div class="download-links">
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-linux.zip`} class="btn btn-outline btn-sm">
+          Linux (.zip)
+        </a>
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-macos.zip`} class="btn btn-outline btn-sm">
+          macOS (.zip)
+        </a>
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-windows.zip`} class="btn btn-outline btn-sm">
+          Windows (.zip)
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tab = btn.dataset.tab!;
+      document.querySelectorAll<HTMLButtonElement>(".tab-btn").forEach((b) =>
+        b.setAttribute("aria-selected", "false")
+      );
+      btn.setAttribute("aria-selected", "true");
+      document.querySelectorAll<HTMLElement>(".tab-panel").forEach((p) =>
+        p.removeAttribute("data-active")
+      );
+      document.getElementById(`panel-${tab}`)?.setAttribute("data-active", "");
+    });
+  });
+</script>
+
+<style>
+  .download-card {
+    max-width: 720px;
+  }
+
+  .download-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+</style>

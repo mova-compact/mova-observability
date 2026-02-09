@@ -1,0 +1,60 @@
+---
+---
+
+<section id="quickstart" class="section">
+  <div class="container">
+    <h2 class="section-title">Quick Start</h2>
+    <p class="section-subtitle">
+      From raw logs to verified evidence in under a minute.
+    </p>
+
+    <div class="card quickstart-card">
+      <pre><code>{`# 1. Start observation run
+mova-compact observe start --run-dir runs/my-run --run-id my-run-001
+
+# 2. Record semantic events
+mova-compact observe record --run-dir runs/my-run --input semantic.jsonl
+
+# 3. Finish and expand
+mova-compact observe finish --run-dir runs/my-run
+mova-compact expand --run-dir runs/my-run
+
+# 4. Join with time data and verify
+mova-compact join --run-dir runs/my-run --time otel_time.jsonl
+mova-compact verify --run-dir runs/my-run
+
+# 5. Inspect the result
+cat runs/my-run/reports/merged_journal.jsonl | head -3`}</code></pre>
+
+      <div class="output-preview">
+        <span class="output-label">Sample output (merged_journal.jsonl)</span>
+        <pre><code>{`{"type":"match","event_id":"E000001","step_id":"E000001",
+ "confidence":0.93,"ambiguity_flag":false,
+ "event":{"ts_start":2.0,"ts_end":2.001,"tool_name":"file_history"},
+ "semantic":{"run_id":"my-run-001","tool_name":"file_history",
+  "decision_kind":"file-history-snapshot"}}`}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quickstart-card {
+    max-width: 720px;
+  }
+
+  .output-preview {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .output-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+</style>

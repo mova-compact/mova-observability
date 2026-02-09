@@ -1,0 +1,90 @@
+---
+const links = [
+  { href: "#features", label: "Features" },
+  { href: "#how-it-works", label: "How It Works" },
+  { href: "#proof", label: "Proof" },
+  { href: "#download", label: "Download" },
+];
+---
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/logo.png" alt="MOVA" class="logo-img" />
+      <span>MOVA Compact</span>
+    </a>
+    <div class="nav-links">
+      {links.map((l) => (
+        <a href={l.href}>{l.label}</a>
+      ))}
+      <a href="https://github.com/mova-compact/mova-compact" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13, 17, 23, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.5rem;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .nav-logo:hover {
+    color: var(--text);
+  }
+
+  .logo-img {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 4px;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .btn-sm {
+    padding: 0.35rem 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 640px) {
+    .nav-links a:not(.btn) {
+      display: none;
+    }
+  }
+</style>

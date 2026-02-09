@@ -1,0 +1,76 @@
+---
+const features = [
+  {
+    icon: "&#x2694;",
+    title: "Dual Observability",
+    desc: "Joins time-axis and semantic-axis event streams into one correlated evidence journal with confidence scores.",
+  },
+  {
+    icon: "&#x1F310;",
+    title: "Vendor-Agnostic",
+    desc: "Proven on Codex and Claude Code. Universal contract works with any agent runtime that exports JSONL.",
+  },
+  {
+    icon: "&#x1F4E6;",
+    title: "10\u201316x Compression",
+    desc: "Compact binary format stores the same data in a fraction of the space. Expand to JSONL any time.",
+  },
+  {
+    icon: "&#x1F6E1;",
+    title: "Security-Gated",
+    desc: "SHA256 integrity, CRC32 checksums, manifest validation, duplicate detection, monotonicity checks.",
+  },
+  {
+    icon: "&#x1F501;",
+    title: "Deterministic",
+    desc: "Same input always produces the same output. Verify with hash comparison across any number of re-runs.",
+  },
+  {
+    icon: "&#x26A1;",
+    title: "Zero Dependencies",
+    desc: "Single executable. No runtime, no network calls, no telemetry. Runs entirely on your machine.",
+  },
+];
+---
+
+<section id="features" class="section">
+  <div class="container">
+    <h2 class="section-title">Built for Evidence</h2>
+    <p class="section-subtitle">
+      Everything you need to turn noisy agent logs into trustworthy, correlated evidence.
+    </p>
+    <div class="grid-3">
+      {features.map((f) => (
+        <div class="card feature-card">
+          <span class="feature-icon" set:html={f.icon} />
+          <h3 class="feature-title">{f.title}</h3>
+          <p class="feature-desc">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feature-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .feature-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .feature-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+</style>

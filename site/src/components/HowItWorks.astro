@@ -1,0 +1,96 @@
+---
+const steps = [
+  {
+    num: "01",
+    title: "Observe",
+    desc: "Capture semantic events during agent execution. Feed time-axis data from OTel or any structured source.",
+    cmd: "mova-compact observe start --run-dir runs/demo",
+  },
+  {
+    num: "02",
+    title: "Join",
+    desc: "Deterministically correlate time and semantic streams by run_id and step_id. Get confidence scores per match.",
+    cmd: "mova-compact join --run-dir runs/demo --time otel.jsonl",
+  },
+  {
+    num: "03",
+    title: "Verify",
+    desc: "Run built-in integrity checks, negative controls (shift/shuffle), and determinism proof. Evidence-grade output.",
+    cmd: "mova-compact verify --run-dir runs/demo",
+  },
+];
+---
+
+<section id="how-it-works" class="section">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-subtitle">
+      Three commands. From raw logs to verified evidence.
+    </p>
+    <div class="steps">
+      {steps.map((s) => (
+        <div class="step">
+          <div class="step-header">
+            <span class="step-num">{s.num}</span>
+            <h3 class="step-title">{s.title}</h3>
+          </div>
+          <p class="step-desc">{s.desc}</p>
+          <pre><code>{s.cmd}</code></pre>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--bg);
+    background: var(--accent);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .step-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .step pre {
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+---
+
+<section id="proof" class="section">
+  <div class="container">
+    <h2 class="section-title">Proven, Not Promised</h2>
+    <p class="section-subtitle">
+      Validated on real agent runs from two independent vendors.
+      Every claim is backed by reproducible proof artifacts.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="proof-heading">Vendor Validation Matrix</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Codex</th>
+                <th>Claude Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Join Coverage</td>
+                <td class="val-good">100%</td>
+                <td class="val-good">100%</td>
+              </tr>
+              <tr>
+                <td>Wrong-Link Rate</td>
+                <td class="val-good">0%</td>
+                <td class="val-good">0%</td>
+              </tr>
+              <tr>
+                <td>Determinism</td>
+                <td class="val-good">Yes</td>
+                <td class="val-good">Yes</td>
+              </tr>
+              <tr>
+                <td>Sanity Controls</td>
+                <td class="val-good">Pass</td>
+                <td class="val-good">Pass</td>
+              </tr>
+              <tr>
+                <td>Parallel Support</td>
+                <td>lanes_v0</td>
+                <td>single</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="proof-heading">Compression Ratios</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Compact</th>
+                <th>Expanded</th>
+                <th>Ratio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Codex</td>
+                <td><code>78 B</code></td>
+                <td><code>1,262 B</code></td>
+                <td class="val-accent">16.18x</td>
+              </tr>
+              <tr>
+                <td>Claude Code</td>
+                <td><code>78 B</code></td>
+                <td><code>1,199 B</code></td>
+                <td class="val-accent">15.37x</td>
+              </tr>
+              <tr>
+                <td>Core (minimal)</td>
+                <td><code>249 B</code></td>
+                <td><code>2,492 B</code></td>
+                <td class="val-accent">10.01x</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="proof-note">
+          Same semantic content, fraction of the bytes. Expand to full JSONL any time.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .proof-note {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .val-good {
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .val-accent {
+    color: var(--accent);
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+</style>
