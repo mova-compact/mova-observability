@@ -1,21 +1,81 @@
-MIT License
+MOVA COMPACT COMMUNITY & EVALUATION LICENSE (MCEL) v0.1
+Copyright (c) 2026 Sergii Miasoiedov. All rights reserved.
 
-Copyright (c) 2025 MOVA
+IMPORTANT: This license is NOT an open-source license. Commercial licenses are available separately.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+0) PARAMETERS
+Licensor: Sergii Miasoiedov
+Contact for Commercial License: mail.mova@gmx.de
+Product Name: "MOVA Compact"
+Governing Law / Venue: Germany, Berlin
+Effective Date: 2026-02-09
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1) ACCEPTANCE
+By downloading, installing, accessing, or using the Software, you agree to this license.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2) DEFINITIONS
+"Software" means the MOVA Compact binaries, documentation, and any accompanying files delivered by Licensor.
+"Permitted Use" means use allowed under Section 3.
+"Noncommercial Use" means use not primarily intended for or directed toward commercial advantage, monetary compensation, or revenue generation.
+"Commercial Use" means any of the following:
+  a) use of the Software (or its output) in a product or service offered for a fee or monetized in any way;
+  b) use in production environments of a business, organization, or government entity, except purely internal evaluation;
+  c) providing the Software as a hosted or managed service (SaaS / cloud / API service), including time-sharing;
+  d) reselling, sublicensing, bundling, embedding, or distributing the Software as part of another product;
+  e) using the Software to create a competing product or to replicate core functionality for commercial purposes.
+"Evaluation" means internal testing solely for deciding whether to obtain a Commercial License.
+
+3) GRANT OF RIGHTS (PERMITTED USE)
+Subject to this license, Licensor grants you a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to:
+  a) download and run the Software for Noncommercial Use and/or Evaluation;
+  b) use outputs produced by the Software for your internal analysis and reporting;
+  c) publish NON-SENSITIVE benchmark results or research conclusions, provided you do not disclose Licensor’s trade secrets and you attribute as required in Section 6.
+
+4) RESTRICTIONS (NOT PERMITTED)
+Unless you have a separate written Commercial License from Licensor, you must NOT:
+  a) use the Software for any Commercial Use;
+  b) redistribute the Software or make it available to third parties (including mirrors), except unmodified redistribution explicitly permitted by Licensor in writing;
+  c) modify, translate, adapt, or create derivative works of the Software;
+  d) reverse engineer, decompile, disassemble, or otherwise attempt to derive source code, underlying ideas, algorithms, file formats, or protocols,
+     except to the extent such restriction is prohibited by applicable law;
+  e) remove or alter copyright notices, license notices, or branding;
+  f) claim authorship, origin, or endorsement by Licensor;
+  g) use the Software to build or assist in building a competing product or service.
+
+5) OWNERSHIP
+The Software is licensed, not sold. Licensor retains all right, title, and interest, including all intellectual property rights.
+
+6) ATTRIBUTION & BRAND
+If you publicly reference results produced using the Software (e.g., blog post, paper, talk), you must include a clear attribution:
+  “Generated/validated using MOVA Compact by Sergii Miasoiedov.”
+You may NOT use “MOVA”, “MOVA Compact”, logos, or related marks as your product name, or in a way that suggests endorsement or origin.
+
+7) DATA
+You own your data and logs you generate. Licensor does not claim ownership of your operational data.
+This license does not grant you any rights to Licensor’s trademarks beyond the attribution in Section 6.
+
+8) UPDATES
+Licensor may provide updates at its discretion. Updates are governed by this license unless accompanied by a different license.
+
+9) TERM & TERMINATION
+This license is effective until terminated.
+Licensor may terminate immediately if you breach Sections 4, 5, or 6.
+Upon termination, you must stop using the Software and delete all copies under your control.
+
+10) DISCLAIMER OF WARRANTY
+THE SOFTWARE IS PROVIDED “AS IS” AND “AS AVAILABLE”, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+11) LIMITATION OF LIABILITY
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, OR BUSINESS INTERRUPTION.
+LICENSOR’S TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT PAID BY YOU (IF ANY) FOR THE SOFTWARE IN THE 12 MONTHS
+PRECEDING THE CLAIM.
+
+12) GOVERNING LAW & VENUE
+This license is governed by the laws of Germany, excluding conflict of law rules.
+Exclusive venue: Berlin, Germany, unless mandatory law requires otherwise.
+
+13) COMMERCIAL LICENSE
+Any Commercial Use requires a separate written Commercial License from Licensor.
+Contact: mail.mova@gmx.de
