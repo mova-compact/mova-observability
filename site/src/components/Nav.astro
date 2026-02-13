@@ -9,15 +9,15 @@ const links = [
 
 <nav class="nav">
   <div class="container nav-inner">
-    <a href="/" class="nav-logo">
+    <a href="/" class="nav-brand">MOVA Compact</a>
+    <a href="/" class="nav-logo-center">
       <img src="/logo.png" alt="MOVA" class="logo-img" />
-      <span>MOVA Compact</span>
     </a>
     <div class="nav-links">
       {links.map((l) => (
         <a href={l.href}>{l.label}</a>
       ))}
-      <a href="https://github.com/mova-compact/mova-compact" class="btn btn-outline btn-sm" target="_blank" rel="noopener">
+      <a href="https://github.com/mova-compact/mova-compact" class="nav-link-gh" target="_blank" rel="noopener">
         GitHub
       </a>
     </div>
@@ -29,7 +29,7 @@ const links = [
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(13, 17, 23, 0.85);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -39,25 +39,31 @@ const links = [
     align-items: center;
     justify-content: space-between;
     height: 3.5rem;
+    position: relative;
   }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  .nav-brand {
     font-weight: 700;
     font-size: 1.05rem;
     color: var(--text);
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
   }
 
-  .nav-logo:hover {
+  .nav-brand:hover {
     color: var(--text);
   }
 
+  .nav-logo-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .logo-img {
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 4px;
+    width: 2rem;
+    height: 2rem;
     object-fit: contain;
   }
 
@@ -68,22 +74,22 @@ const links = [
   }
 
   .nav-links a {
-    color: var(--text-secondary);
+    color: var(--text);
     font-size: 0.9rem;
     font-weight: 500;
+    transition: color 0.15s;
   }
 
   .nav-links a:hover {
-    color: var(--text);
+    color: var(--accent);
   }
 
-  .btn-sm {
-    padding: 0.35rem 0.9rem;
-    font-size: 0.8rem;
+  .nav-link-gh {
+    font-weight: 600 !important;
   }
 
   @media (max-width: 640px) {
-    .nav-links a:not(.btn) {
+    .nav-links a:not(.nav-link-gh) {
       display: none;
     }
   }

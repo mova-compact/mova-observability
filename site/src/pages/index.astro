@@ -8,16 +8,23 @@ import Proof from "../components/Proof.astro";
 import Download from "../components/Download.astro";
 import QuickStart from "../components/QuickStart.astro";
 import Footer from "../components/Footer.astro";
+
+const crosses = "\u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716 \u2716";
 ---
 
 <Base>
   <Nav />
   <main>
     <Hero />
+    <div class="container"><div class="cross-divider">{crosses}</div></div>
     <Features />
+    <div class="container"><div class="cross-divider">{crosses}</div></div>
     <HowItWorks />
+    <div class="container"><div class="cross-divider">{crosses}</div></div>
     <Proof />
+    <div class="container"><div class="cross-divider">{crosses}</div></div>
     <Download />
+    <div class="container"><div class="cross-divider">{crosses}</div></div>
     <QuickStart />
   </main>
   <Footer />

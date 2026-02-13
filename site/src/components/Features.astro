@@ -39,9 +39,9 @@ const features = [
     <p class="section-subtitle">
       Everything you need to turn noisy agent logs into trustworthy, correlated evidence.
     </p>
-    <div class="grid-3">
+    <div class="grid-3 features-grid">
       {features.map((f) => (
-        <div class="card feature-card">
+        <div class="feature-card">
           <span class="feature-icon" set:html={f.icon} />
           <h3 class="feature-title">{f.title}</h3>
           <p class="feature-desc">{f.desc}</p>
@@ -52,25 +52,42 @@ const features = [
 </section>
 
 <style>
+  .features-grid {
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+
   .feature-card {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    aspect-ratio: auto;
+  }
+
+  @media (min-width: 640px) {
+    .feature-card {
+      aspect-ratio: 1;
+      justify-content: center;
+    }
   }
 
   .feature-icon {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     line-height: 1;
   }
 
   .feature-title {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
+    color: var(--text);
   }
 
   .feature-desc {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     line-height: 1.6;
   }
 </style>

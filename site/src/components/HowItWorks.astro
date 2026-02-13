@@ -50,9 +50,9 @@ const steps = [
   }
 
   .step {
-    background: var(--surface);
+    background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 0;
     padding: 2rem;
   }
 
@@ -67,11 +67,11 @@ const steps = [
     font-family: var(--font-mono);
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--bg);
+    color: #ffffff;
     background: var(--accent);
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,6 +81,7 @@ const steps = [
   .step-title {
     font-size: 1.25rem;
     font-weight: 700;
+    color: var(--text);
   }
 
   .step-desc {

@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
       <span class="footer-copy">&copy; {year} MOVA. MIT License.</span>
     </div>
     <div class="footer-links">
-      <a href="https://github.com/mova-compact/mova-compact" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/mova-compact/mova-compact" target="_blank" rel="noopener" class="footer-link-accent">GitHub</a>
       <a href="#features">Features</a>
       <a href="#download">Download</a>
     </div>
@@ -18,9 +18,11 @@ const year = new Date().getFullYear();
 
 <style>
   .footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 0;
-    margin-top: 2rem;
+    background: var(--inv-bg);
+    color: var(--inv-text);
+    padding: 3rem 0;
+    margin-top: 0;
+    border-top: none;
   }
 
   .footer-inner {
@@ -40,11 +42,12 @@ const year = new Date().getFullYear();
   .footer-brand {
     font-weight: 700;
     font-size: 0.95rem;
+    color: var(--inv-text);
   }
 
   .footer-copy {
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: var(--inv-text-secondary);
   }
 
   .footer-links {
@@ -54,10 +57,19 @@ const year = new Date().getFullYear();
 
   .footer-links a {
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: var(--inv-text-secondary);
+    transition: color 0.15s;
   }
 
   .footer-links a:hover {
-    color: var(--text);
+    color: var(--inv-text);
+  }
+
+  .footer-link-accent {
+    color: var(--accent) !important;
+  }
+
+  .footer-link-accent:hover {
+    color: var(--accent-hover) !important;
   }
 </style>
