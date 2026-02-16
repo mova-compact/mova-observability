@@ -120,20 +120,6 @@ pre code {
   font-weight: 400;
 }
 
-/* ── Cross-stitch divider ─────────────────────── */
-.cross-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0;
-  color: var(--accent);
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  user-select: none;
-  opacity: 0.55;
-}
-
 /* ── Buttons ───────────────────────────────────── */
 .btn {
   display: inline-flex;

@@ -1,0 +1,49 @@
+---
+---
+
+<section id="success" class="section">
+  <div class="container">
+    <h2 class="section-title">Success Criteria</h2>
+    <p class="section-subtitle">
+      Use these checks to confirm the integration works.
+    </p>
+
+    <div class="grid-2 success-grid">
+      <div class="card">
+        <h3 class="success-title">Verification</h3>
+        <ul class="success-list">
+          <li><code>verify</code> returns <code>status: ok</code></li>
+          <li><code>outputs/sanity_controls.json</code> has <code>gate_passed = true</code></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 class="success-title">Coverage Signals</h3>
+        <ul class="success-list">
+          <li>Read <code>outputs/summary.json</code></li>
+          <li><code>coverage</code> close to <code>1.0</code></li>
+          <li><code>unmatched_semantic = 0</code></li>
+          <li><code>unmatched_time = 0</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .success-grid {
+    gap: 1rem;
+  }
+
+  .success-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .success-list {
+    padding-left: 1rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+</style>

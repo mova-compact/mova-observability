@@ -3,69 +3,48 @@
 
 <section id="integrations" class="section">
   <div class="container">
-    <h2 class="section-title">Agent Integrations</h2>
+    <h2 class="section-title">Integrations</h2>
     <p class="section-subtitle">
-      Integration reference for production wiring: semantic stream collection, OTel time-axis join, and connector entry points.
+      Supported connector paths with the same collector contract.
     </p>
 
-    <div class="integration-flow">
+    <div class="grid-2 integration-grid">
       <div class="card integration-card">
-        <h3 class="integration-title">Binary Collector Contract</h3>
+        <h3 class="integration-title">Codex / OpenAI</h3>
         <p class="integration-desc">
-          Send one semantic JSON object per line from your agent to stdout, then pipe directly into MOVA Compact.
+          Use the OpenAI adapter to emit collector-ready semantic events.
         </p>
-        <pre><code>{`mova-compact -h
-mova-compact collect -h
-
-python my_agent.py \
-  | mova-compact collect --run-dir runs/agent --run-id agent-001 --input - --strict
-mova-compact expand --run-dir runs/agent`}</code></pre>
+        <pre><code>{`python connectors/openai/openai_connector_demo.py | ./mova-compact collect --run-dir runs/demo --run-id demo-001 --input - --strict`}</code></pre>
       </div>
 
       <div class="card integration-card">
-        <h3 class="integration-title">OTel Time-Axis Join</h3>
+        <h3 class="integration-title">Anthropic</h3>
         <p class="integration-desc">
-          Export OTel-derived time journal to JSONL and join it with the semantic compact run.
+          Use the Anthropic adapter to emit the same semantic contract.
         </p>
-        <pre><code>{`python export_otel_jsonl.py --service my-agent --out otel_time.jsonl
-mova-compact join --run-dir runs/agent --time otel_time.jsonl
-mova-compact verify --run-dir runs/agent`}</code></pre>
+        <pre><code>{`python connectors/anthropic/anthropic_connector_demo.py | ./mova-compact collect --run-dir runs/demo --run-id demo-001 --input - --strict`}</code></pre>
       </div>
+    </div>
 
-      <div class="card integration-card">
-        <h3 class="integration-title">Claude Connector</h3>
-        <p class="integration-desc">
-          Wrapper-first adapter for Anthropic flows and Claude-like events.
-        </p>
-        <pre><code>{`python connectors/anthropic/anthropic_connector_demo.py \
-  | mova-compact collect --run-dir runs/claude --run-id claude-001 --input - --strict
-mova-compact expand --run-dir runs/claude`}</code></pre>
-        <a href="https://github.com/mova-compact/mova-downloads/releases/latest/download/mova-connectors-python.zip" target="_blank" rel="noopener" class="integration-link">
-          Download Connectors Pack
-        </a>
-      </div>
+    <div class="card integration-card integration-wrap">
+      <h3 class="integration-title">Wrap Your Tools</h3>
+      <p class="integration-desc">
+        Minimal wrapper snippet to emit consistent tool events.
+      </p>
+      <pre><code>{`from connectors.openai.openai_connector import OpenAIConnector
 
-      <div class="card integration-card">
-        <h3 class="integration-title">Codex / OpenAI Connector</h3>
-        <p class="integration-desc">
-          Adapter for OpenAI/Codex-style tool events with the same collector contract.
-        </p>
-        <pre><code>{`python connectors/openai/openai_connector_demo.py \
-  | mova-compact collect --run-dir runs/codex --run-id codex-001 --input - --strict
-mova-compact expand --run-dir runs/codex`}</code></pre>
-        <a href="https://github.com/mova-compact/mova-downloads/releases/latest/download/mova-connectors-python.zip" target="_blank" rel="noopener" class="integration-link">
-          Download Connectors Pack
-        </a>
-      </div>
+connector = OpenAIConnector(run_id="demo-001")
+safe_tool = connector.wrap_tool("my_tool", my_tool)
+result = safe_tool("arg")
+connector.emit_model_output(note="step_done", result_kind="ok")`}</code></pre>
     </div>
   </div>
 </section>
 
 <style>
-  .integration-flow {
-    display: flex;
-    flex-direction: column;
+  .integration-grid {
     gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   .integration-card {
@@ -86,16 +65,11 @@ mova-compact expand --run-dir runs/codex`}</code></pre>
     color: var(--text-secondary);
   }
 
-  .integration-link {
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  .integration-link:hover {
-    color: var(--accent-hover);
-  }
-
   .integration-card pre {
     margin: 0;
+  }
+
+  .integration-wrap {
+    margin-top: 0;
   }
 </style>

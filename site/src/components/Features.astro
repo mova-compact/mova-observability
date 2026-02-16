@@ -1,45 +1,35 @@
 ---
 const features = [
   {
-    icon: "&#x2694;",
-    title: "Dual Observability",
-    desc: "Joins time-axis and semantic-axis event streams into one correlated evidence journal with confidence scores.",
-  },
-  {
-    icon: "&#x1F310;",
-    title: "Vendor-Agnostic",
-    desc: "Vendor-independent contract validated on Codex and Claude Code. Works with any agent runtime that exports JSONL.",
-  },
-  {
     icon: "&#x1F4E6;",
-    title: "13.81\u201316.18x Compression",
-    desc: "Published proof runs show 13.81x (core minimal) up to 16.18x (canonical vendor task). Expand to JSONL any time.",
+    title: "Compact Run Artifact",
+    desc: "Collect semantic events directly into compact run data with strict validation.",
+  },
+  {
+    icon: "&#x1F5C2;",
+    title: "Expanded JSONL",
+    desc: "Expand compact payload back to readable JSONL for audits and debugging.",
+  },
+  {
+    icon: "&#x1F517;",
+    title: "Semantic + Time Join",
+    desc: "Join semantic steps with OTel timeline using deterministic run-level correlation.",
   },
   {
     icon: "&#x1F6E1;",
-    title: "Security-Gated",
-    desc: "SHA256 integrity, CRC32 checksums, manifest validation, duplicate detection, monotonicity checks.",
-  },
-  {
-    icon: "&#x1F501;",
-    title: "Deterministic",
-    desc: "Same input always produces the same output. Verify with hash comparison across any number of re-runs.",
-  },
-  {
-    icon: "&#x26A1;",
-    title: "Zero Dependencies",
-    desc: "Single executable. No runtime, no network calls, no telemetry. Runs entirely on your machine.",
+    title: "Verification Gates",
+    desc: "Run integrity and consistency checks, then inspect summary and sanity control outputs.",
   },
 ];
 ---
 
 <section id="features" class="section">
   <div class="container">
-    <h2 class="section-title">Built for Evidence</h2>
+    <h2 class="section-title">What You Get</h2>
     <p class="section-subtitle">
-      Everything you need to turn noisy agent logs into trustworthy, correlated evidence.
+      Four concrete outputs you can use on day one.
     </p>
-    <div class="grid-3 features-grid">
+    <div class="grid-2 features-grid">
       {features.map((f) => (
         <div class="feature-card">
           <span class="feature-icon" set:html={f.icon} />
@@ -55,6 +45,7 @@ const features = [
   .features-grid {
     border-top: 1px solid var(--border);
     border-left: 1px solid var(--border);
+    gap: 0;
   }
 
   .feature-card {
@@ -69,7 +60,7 @@ const features = [
 
   @media (min-width: 640px) {
     .feature-card {
-      aspect-ratio: 1;
+      aspect-ratio: auto;
       justify-content: center;
     }
   }

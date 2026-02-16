@@ -3,47 +3,40 @@
 
 <section id="quickstart" class="section">
   <div class="container">
-    <h2 class="section-title">Quick Start (Sequential)</h2>
+    <h2 class="section-title">Quickstart</h2>
     <p class="section-subtitle">
-      Codex-first runbook: sanity check, collect, expand, OTel join, verify, and PASS criteria.
+      One canonical flow. Copy, run, inspect outputs.
     </p>
 
     <div class="card quickstart-card">
-      <pre><code>{`# 1) Quick sanity (binary is callable)
-mova-compact -h
-mova-compact collect -h
+      <pre><code>{`# 1) Download binary + connectors
+curl -fsSL https://github.com/mova-compact/mova-downloads/releases/latest/download/mova-compact-linux -o mova-compact
+chmod +x mova-compact
+curl -fsSL https://github.com/mova-compact/mova-downloads/releases/latest/download/mova-connectors-python.zip -o mova-connectors-python.zip
+unzip mova-connectors-python.zip
 
-# 2) Codex/OpenAI demo pipeline (copy-paste ready)
-python connectors/openai/openai_connector_demo.py \
-  | mova-compact collect --run-dir runs/o1 --run-id o1 --input - --strict
-mova-compact expand --run-dir runs/o1
+# 2) Sanity
+./mova-compact -h
 
-# 3) OTel time-axis export
-python export_otel_jsonl.py --service my-agent --out otel_time.jsonl
+# 3) Collect semantic events
+python connectors/openai/openai_connector_demo.py | ./mova-compact collect --run-dir runs/demo --run-id demo-001 --input - --strict
 
-# 4) Join + verify
-mova-compact join --run-dir runs/o1 --time otel_time.jsonl
-mova-compact verify --run-dir runs/o1
+# 4) Expand
+./mova-compact expand --run-dir runs/demo
 
-# 5) Read actual outputs
-cat runs/o1/outputs/final_observation.jsonl | head -3
-cat runs/o1/outputs/summary.json
-cat runs/o1/outputs/sanity_controls.json`}</code></pre>
+# 5) Join with OTel timeline
+./mova-compact join --run-dir runs/demo --time otel_time.jsonl
 
-      <div class="output-preview">
-        <span class="output-label">PASS Criteria</span>
-        <pre><code>{`verify -> status: ok
-outputs/summary.json:
-  coverage ~= 1.0
-  unmatched_semantic = 0
-  unmatched_time = 0
-outputs/sanity_controls.json:
-  gate_passed = true`}</code></pre>
-      </div>
+# 6) Verify
+./mova-compact verify --run-dir runs/demo
+
+# 7) Inspect outputs
+cat runs/demo/outputs/summary.json
+cat runs/demo/outputs/final_observation.jsonl | head -3`}</code></pre>
 
       <div class="output-preview">
-        <span class="output-label">Codex One-Shot Task</span>
-        <pre><code>{`codex exec "Read this landing runbook, run MOVA quickstart end-to-end in /tmp/mova_eval, and report:
+        <span class="output-label">Run With Codex</span>
+        <pre><code>{`codex exec "Run MOVA quickstart end-to-end and report:
 1) verify status
 2) coverage from outputs/summary.json
 3) gate_passed from outputs/sanity_controls.json
