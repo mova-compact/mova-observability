@@ -11,9 +11,6 @@ const links = [
 <nav class="nav">
   <div class="container nav-inner">
     <a href="/" class="nav-brand">MOVA Compact</a>
-    <a href="/" class="nav-logo-center">
-      <img src="/logo.png" alt="MOVA" class="logo-img" />
-    </a>
     <div class="nav-links">
       {links.map((l) => (
         <a href={l.href}>{l.label}</a>
@@ -53,19 +50,6 @@ const links = [
 
   .nav-brand:hover {
     color: var(--text);
-  }
-
-  .nav-logo-center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .logo-img {
-    width: 2rem;
-    height: 2rem;
-    object-fit: contain;
   }
 
   .nav-links {

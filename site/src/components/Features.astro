@@ -1,22 +1,18 @@
 ---
 const features = [
   {
-    icon: "&#x1F4E6;",
     title: "Compact Run Artifact",
     desc: "Collect semantic events directly into compact run data with strict validation.",
   },
   {
-    icon: "&#x1F5C2;",
     title: "Expanded JSONL",
     desc: "Expand compact payload back to readable JSONL for audits and debugging.",
   },
   {
-    icon: "&#x1F517;",
     title: "Semantic + Time Join",
     desc: "Join semantic steps with OTel timeline using deterministic run-level correlation.",
   },
   {
-    icon: "&#x1F6E1;",
     title: "Verification Gates",
     desc: "Run integrity and consistency checks, then inspect summary and sanity control outputs.",
   },
@@ -32,7 +28,6 @@ const features = [
     <div class="grid-2 features-grid">
       {features.map((f) => (
         <div class="feature-card">
-          <span class="feature-icon" set:html={f.icon} />
           <h3 class="feature-title">{f.title}</h3>
           <p class="feature-desc">{f.desc}</p>
         </div>
@@ -63,11 +58,6 @@ const features = [
       aspect-ratio: auto;
       justify-content: center;
     }
-  }
-
-  .feature-icon {
-    font-size: 1.5rem;
-    line-height: 1;
   }
 
   .feature-title {
