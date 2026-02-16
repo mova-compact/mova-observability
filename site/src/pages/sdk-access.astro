@@ -1,0 +1,423 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const formEndpoint = import.meta.env.PUBLIC_SDK_FORM_ENDPOINT ?? "";
+const contactEmail = import.meta.env.PUBLIC_SDK_CONTACT_EMAIL ?? "mail.mova@gmx.de";
+---
+
+<Base
+  title="Request Production SDK Access | MOVA Compact"
+  description="Request private early access to the MOVA Production SDK for agent teams shipping at scale."
+>
+  <Nav />
+  <main class="section sdk-access-section">
+    <div class="container sdk-access-container">
+      <a href="/" class="sdk-back-link">Back to home</a>
+      <h1 class="sdk-access-title">Request Production SDK Access</h1>
+      <p class="sdk-access-subtitle">
+        Tell us about your use case. We’ll follow up with access details.
+      </p>
+
+      <form class="card sdk-form" data-sdk-form data-endpoint={formEndpoint} novalidate>
+        <div class="form-row">
+          <label for="fullName">Full name</label>
+          <input id="fullName" name="fullName" type="text" autocomplete="name" />
+          <p class="field-error" data-error-for="fullName"></p>
+        </div>
+
+        <div class="form-row">
+          <label for="workEmail">Work email</label>
+          <input id="workEmail" name="workEmail" type="email" autocomplete="email" />
+          <p class="field-error" data-error-for="workEmail"></p>
+        </div>
+
+        <div class="form-row">
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" autocomplete="organization" />
+          <p class="field-error" data-error-for="company"></p>
+        </div>
+
+        <div class="form-row">
+          <label for="role">Role (optional)</label>
+          <input id="role" name="role" type="text" autocomplete="organization-title" />
+          <p class="field-error" data-error-for="role"></p>
+        </div>
+
+        <div class="form-row">
+          <label for="useCase">Use case</label>
+          <textarea id="useCase" name="useCase" rows="5"></textarea>
+          <p class="field-error" data-error-for="useCase"></p>
+        </div>
+
+        <div class="form-row">
+          <label for="stack">Current stack</label>
+          <select id="stack" name="stack">
+            <option value="">Select one</option>
+            <option value="Codex">Codex</option>
+            <option value="OpenAI">OpenAI</option>
+            <option value="Anthropic">Anthropic</option>
+            <option value="Multi-provider">Multi-provider</option>
+            <option value="Other">Other</option>
+          </select>
+          <p class="field-error" data-error-for="stack"></p>
+        </div>
+
+        <div class="form-row">
+          <label for="timeline">Timeline</label>
+          <select id="timeline" name="timeline">
+            <option value="">Select one</option>
+            <option value="Exploring">Exploring</option>
+            <option value="1–3 months">1–3 months</option>
+            <option value="Active rollout">Active rollout</option>
+          </select>
+          <p class="field-error" data-error-for="timeline"></p>
+        </div>
+
+        <fieldset class="form-row">
+          <legend>Need custom dictionaries?</legend>
+          <div class="radio-row">
+            <label class="radio-option">
+              <input type="radio" name="customDictionaries" value="Yes" />
+              <span>Yes</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="customDictionaries" value="No" />
+              <span>No</span>
+            </label>
+          </div>
+          <p class="field-error" data-error-for="customDictionaries"></p>
+        </fieldset>
+
+        <div class="form-row consent-row">
+          <label class="checkbox-option" for="consent">
+            <input id="consent" name="consent" type="checkbox" />
+            <span>I agree to be contacted about SDK access.</span>
+          </label>
+          <p class="field-error" data-error-for="consent"></p>
+        </div>
+
+        <p class="form-error" data-form-error aria-live="polite"></p>
+        <button class="btn btn-primary submit-btn" type="submit">Submit Request</button>
+      </form>
+
+      <section class="card sdk-success" data-sdk-success hidden>
+        <h2>Thanks — we received your request.</h2>
+        <p>We usually respond within 3 business days.</p>
+        <a class="btn btn-outline" href="/">Back to Home</a>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<script is:inline define:vars={{ contactEmail }}>
+  (() => {
+    const form = document.querySelector("[data-sdk-form]");
+    if (!form) return;
+
+    const successBlock = document.querySelector("[data-sdk-success]");
+    const formError = form.querySelector("[data-form-error]");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const defaultSubmitText = submitBtn.textContent;
+    const endpoint = (form.dataset.endpoint || "").trim();
+
+    const track = (eventName, props = {}) => {
+      try {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", eventName, props);
+        }
+        if (typeof window.plausible === "function") {
+          window.plausible(eventName, { props });
+        }
+      } catch (_error) {
+      }
+    };
+
+    const setSubmitting = (value) => {
+      submitBtn.disabled = value;
+      submitBtn.textContent = value ? "Submitting..." : defaultSubmitText;
+    };
+
+    const clearErrors = () => {
+      formError.textContent = "";
+      form.querySelectorAll(".field-error").forEach((node) => {
+        node.textContent = "";
+      });
+      form.querySelectorAll("[aria-invalid='true']").forEach((el) => {
+        el.removeAttribute("aria-invalid");
+      });
+    };
+
+    const setFieldError = (fieldName, message) => {
+      const errorNode = form.querySelector(`[data-error-for="${fieldName}"]`);
+      if (errorNode) {
+        errorNode.textContent = message;
+      }
+      if (fieldName === "customDictionaries") {
+        const radio = form.querySelector('input[name="customDictionaries"]');
+        if (radio) radio.setAttribute("aria-invalid", "true");
+        return;
+      }
+      const field = form.querySelector(`[name="${fieldName}"]`);
+      if (field) field.setAttribute("aria-invalid", "true");
+    };
+
+    const validate = () => {
+      let valid = true;
+
+      const requiredText = [
+        ["fullName", "Please enter your full name."],
+        ["company", "Please enter your company."],
+        ["useCase", "Please describe your use case."],
+      ];
+
+      requiredText.forEach(([name, message]) => {
+        const field = form.querySelector(`[name="${name}"]`);
+        if (!field || !field.value.trim()) {
+          valid = false;
+          setFieldError(name, message);
+        }
+      });
+
+      const emailField = form.querySelector('[name="workEmail"]');
+      const emailValue = emailField ? emailField.value.trim() : "";
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailValue) {
+        valid = false;
+        setFieldError("workEmail", "Please enter your work email.");
+      } else if (!emailPattern.test(emailValue)) {
+        valid = false;
+        setFieldError("workEmail", "Please enter a valid email address.");
+      }
+
+      ["stack", "timeline"].forEach((name) => {
+        const field = form.querySelector(`[name="${name}"]`);
+        if (!field || !field.value) {
+          valid = false;
+          setFieldError(name, "Please select an option.");
+        }
+      });
+
+      const customDict = form.querySelector('input[name="customDictionaries"]:checked');
+      if (!customDict) {
+        valid = false;
+        setFieldError("customDictionaries", "Please choose Yes or No.");
+      }
+
+      const consent = form.querySelector('[name="consent"]');
+      if (!consent || !consent.checked) {
+        valid = false;
+        setFieldError("consent", "Consent is required to submit this request.");
+      }
+
+      return valid;
+    };
+
+    const getFormSummary = () => {
+      const data = new FormData(form);
+      return [
+        `Full name: ${data.get("fullName") || ""}`,
+        `Work email: ${data.get("workEmail") || ""}`,
+        `Company: ${data.get("company") || ""}`,
+        `Role: ${data.get("role") || ""}`,
+        `Use case: ${data.get("useCase") || ""}`,
+        `Current stack: ${data.get("stack") || ""}`,
+        `Timeline: ${data.get("timeline") || ""}`,
+        `Need custom dictionaries: ${data.get("customDictionaries") || ""}`,
+        `Consent: ${data.get("consent") ? "Yes" : "No"}`,
+      ].join("\n");
+    };
+
+    const showSuccess = () => {
+      form.hidden = true;
+      successBlock.hidden = false;
+      successBlock.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      if (!validate()) {
+        track("sdk_access_form_error", { type: "validation" });
+        return;
+      }
+
+      setSubmitting(true);
+      track("sdk_access_form_submit");
+
+      try {
+        if (endpoint) {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" },
+          });
+          if (!response.ok) {
+            throw new Error(`Form endpoint returned ${response.status}`);
+          }
+        } else {
+          const subject = encodeURIComponent("MOVA Production SDK Early Access Request");
+          const body = encodeURIComponent(getFormSummary());
+          window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+        }
+
+        showSuccess();
+        track("sdk_access_form_success");
+      } catch (_error) {
+        formError.textContent = `Could not submit right now. Please email ${contactEmail}.`;
+        track("sdk_access_form_error", { type: "submit" });
+      } finally {
+        setSubmitting(false);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .sdk-access-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .sdk-access-container {
+    max-width: 760px;
+  }
+
+  .sdk-back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .sdk-access-title {
+    font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .sdk-access-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 58ch;
+  }
+
+  .sdk-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label,
+  legend {
+    font-weight: 600;
+    font-size: 0.93rem;
+    color: var(--text);
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    border: 1px solid var(--border);
+    padding: 0.7rem 0.8rem;
+    font: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border-radius: 0;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: 1px solid var(--accent);
+    border-color: var(--accent);
+  }
+
+  [aria-invalid="true"] {
+    border-color: var(--accent);
+  }
+
+  fieldset {
+    border: 0;
+    padding: 0;
+  }
+
+  .radio-row {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 0.2rem;
+  }
+
+  .radio-option,
+  .checkbox-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+  }
+
+  .radio-option input,
+  .checkbox-option input {
+    width: auto;
+    margin: 0;
+  }
+
+  .consent-row {
+    margin-top: 0.3rem;
+  }
+
+  .field-error {
+    min-height: 1rem;
+    color: var(--accent);
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
+  .form-error {
+    color: var(--accent);
+    font-size: 0.9rem;
+    min-height: 1.2rem;
+  }
+
+  .submit-btn {
+    width: fit-content;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
+  .sdk-success {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .sdk-success h2 {
+    font-size: 1.35rem;
+    line-height: 1.25;
+  }
+
+  .sdk-success p {
+    color: var(--text-secondary);
+  }
+</style>

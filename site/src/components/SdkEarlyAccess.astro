@@ -1,0 +1,87 @@
+---
+---
+
+<section class="section sdk-teaser-section" aria-labelledby="sdk-teaser-title">
+  <div class="container">
+    <div class="card sdk-teaser-card">
+      <span class="badge">Early Access</span>
+      <h2 id="sdk-teaser-title" class="sdk-teaser-title">Production SDK (Early Access)</h2>
+      <p class="sdk-teaser-copy">
+        We offer a private Production SDK for teams shipping agents at scale.
+      </p>
+      <p class="sdk-teaser-copy">
+        Includes custom dictionaries, direct integration (no connector wrappers required), and deeper production controls.
+      </p>
+      <p class="sdk-teaser-copy">
+        Request access to join the early cohort.
+      </p>
+      <a href="/sdk-access" class="btn btn-primary sdk-teaser-cta" data-sdk-access-cta>Request SDK Access</a>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const cta = document.querySelector("[data-sdk-access-cta]");
+    if (!cta) return;
+
+    const track = (eventName, props = {}) => {
+      try {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", eventName, props);
+        }
+        if (typeof window.plausible === "function") {
+          window.plausible(eventName, { props });
+        }
+      } catch (_error) {
+      }
+    };
+
+    cta.addEventListener("click", () => {
+      track("sdk_access_cta_click", { source: "landing_sdk_teaser" });
+    });
+  })();
+</script>
+
+<style>
+  .sdk-teaser-section {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .sdk-teaser-card {
+    max-width: 760px;
+    border-color: var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .sdk-teaser-title {
+    font-size: 1.55rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .sdk-teaser-copy {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 62ch;
+  }
+
+  .sdk-teaser-cta {
+    margin-top: 0.5rem;
+    width: fit-content;
+  }
+
+  @media (max-width: 640px) {
+    .sdk-teaser-title {
+      font-size: 1.3rem;
+    }
+
+    .sdk-teaser-copy {
+      font-size: 0.92rem;
+    }
+  }
+</style>
