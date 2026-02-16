@@ -3,24 +3,33 @@
 
 <section id="quickstart" class="section">
   <div class="container">
-    <h2 class="section-title">Quick Start</h2>
+    <h2 class="section-title">Quick Start (Sequential)</h2>
     <p class="section-subtitle">
-      From raw logs to verified evidence in under a minute. See Integrations for Claude/Codex connector commands.
+      End-to-end order: collect semantic axis from agent, add OTel time axis, join, verify, inspect.
     </p>
 
     <div class="card quickstart-card">
-      <pre><code>{`# 1. Connect your agent output to MOVA Compact
-# Agent emits semantic JSONL (one object per line) to stdout
-python my_agent_with_mova_adapter.py | mova-compact collect --run-dir runs/my-run --run-id my-run-001 --input -
+      <pre><code>{`# 1) Collect semantic axis from your agent
+# Option A: Claude / Anthropic connector
+python connectors/anthropic/anthropic_connector_demo.py \
+  | mova-compact collect --run-dir runs/my-run --run-id my-run-001 --input -
+# Option B: Codex / OpenAI connector
+# python connectors/openai/openai_connector_demo.py \
+#   | mova-compact collect --run-dir runs/my-run --run-id my-run-001 --input -
 
-# 2. Expand compact payload to JSONL
+# 2) Expand compact payload to JSONL
 mova-compact expand --run-dir runs/my-run
 
-# 3. Join with time-axis journal and verify
+# 3) Export OTel time-axis JSONL (from your telemetry pipeline)
+python export_otel_jsonl.py --service my-agent --out otel_time.jsonl
+
+# 4) Join semantic + time axes
 mova-compact join --run-dir runs/my-run --time otel_time.jsonl
+
+# 5) Verify determinism and integrity gates
 mova-compact verify --run-dir runs/my-run
 
-# 4. Inspect correlated evidence
+# 6) Inspect correlated evidence
 cat runs/my-run/reports/merged_journal.jsonl | head -3`}</code></pre>
 
       <div class="output-preview">

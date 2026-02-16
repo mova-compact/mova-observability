@@ -1,4 +1,4 @@
-# Quick Start
+# Quick Start (Sequential)
 
 ## 1. Download
 
@@ -23,9 +23,13 @@ curl -fsSL https://github.com/mova-compact/mova-downloads/releases/latest/downlo
 ## 2. Connect to your agent (semantic stream -> compact)
 
 ```bash
-# Your agent should emit one JSON object per line to stdout.
-# Pipe that stream directly to MOVA Compact:
-python my_agent_with_mova_adapter.py | mova-compact collect --run-dir runs/demo --run-id demo-001 --input -
+# Option A: Claude / Anthropic connector
+python connectors/anthropic/anthropic_connector_demo.py \
+  | mova-compact collect --run-dir runs/demo --run-id demo-001 --input -
+
+# Option B: Codex / OpenAI connector
+# python connectors/openai/openai_connector_demo.py \
+#   | mova-compact collect --run-dir runs/demo --run-id demo-001 --input -
 ```
 
 Minimal semantic event shape emitted by agent adapter:
@@ -34,42 +38,43 @@ Minimal semantic event shape emitted by agent adapter:
 {"run_id":"demo-001","actor_id":"agent_main","ts_ms":1735732800000,"dur_ms":12,"action_code":2,"tool_name":"file_search","result_code":1,"subject_ref":"tool://file_search"}
 ```
 
-## 3. Expand, join, verify
+## 3. Expand compact payload
 
 ```bash
-# Expand compact to JSONL
 mova-compact expand --run-dir runs/demo
-
-# Join with time events
-mova-compact join --run-dir runs/demo --time otel_time.jsonl
-
-# Verify integrity
-mova-compact verify --run-dir runs/demo
 ```
 
 ## 4. OTel time-axis integration
 
 ```bash
-# Export OTel-derived timeline to JSONL, then join:
+# Export OTel-derived timeline to JSONL
 python export_otel_jsonl.py --service my-agent --out otel_time.jsonl
-mova-compact join --run-dir runs/demo --time otel_time.jsonl
 ```
 
-## 5. Claude and Codex connectors
+## 5. Join and verify
 
 ```bash
-# Claude / Anthropic connector demo
-python connectors/anthropic/anthropic_connector_demo.py | mova-compact collect --run-dir runs/claude --run-id claude-001 --input -
+# Join semantic axis with OTel time axis
+mova-compact join --run-dir runs/demo --time otel_time.jsonl
 
-# Codex / OpenAI connector demo
-python connectors/openai/openai_connector_demo.py | mova-compact collect --run-dir runs/codex --run-id codex-001 --input -
+# Verify integrity + determinism checks
+mova-compact verify --run-dir runs/demo
+```
+
+## 6. Connector references
+
+```bash
+# Claude / Anthropic
+python connectors/anthropic/anthropic_connector_demo.py
+# Codex / OpenAI
+python connectors/openai/openai_connector_demo.py
 ```
 
 Connector sources:
 - Claude / Anthropic: https://github.com/mova-compact/mova/tree/main/connectors/anthropic
 - Codex / OpenAI: https://github.com/mova-compact/mova/tree/main/connectors/openai
 
-## 6. Inspect output
+## 7. Inspect output
 
 ```bash
 cat runs/demo/reports/merged_journal.jsonl | head -3

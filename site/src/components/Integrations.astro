@@ -5,21 +5,22 @@
   <div class="container">
     <h2 class="section-title">Agent Integrations</h2>
     <p class="section-subtitle">
-      Practical wiring: binary collector to agent output, OTel time-axis join, and ready connector paths for Claude and Codex.
+      Integration reference for production wiring: semantic stream collection, OTel time-axis join, and connector entry points.
     </p>
 
-    <div class="grid-2 integration-grid">
+    <div class="integration-flow">
       <div class="card integration-card">
-        <h3 class="integration-title">1) Binary To Agent Stream</h3>
+        <h3 class="integration-title">Binary Collector Contract</h3>
         <p class="integration-desc">
           Send one semantic JSON object per line from your agent to stdout, then pipe directly into MOVA Compact.
         </p>
-        <pre><code>{`python my_agent.py | mova-compact collect --run-dir runs/agent --run-id agent-001 --input -
+        <pre><code>{`python my_agent.py \
+  | mova-compact collect --run-dir runs/agent --run-id agent-001 --input -
 mova-compact expand --run-dir runs/agent`}</code></pre>
       </div>
 
       <div class="card integration-card">
-        <h3 class="integration-title">2) OTel Time Axis Join</h3>
+        <h3 class="integration-title">OTel Time-Axis Join</h3>
         <p class="integration-desc">
           Export OTel-derived time journal to JSONL and join it with the semantic compact run.
         </p>
@@ -29,11 +30,12 @@ mova-compact verify --run-dir runs/agent`}</code></pre>
       </div>
 
       <div class="card integration-card">
-        <h3 class="integration-title">3) Claude Connector</h3>
+        <h3 class="integration-title">Claude Connector</h3>
         <p class="integration-desc">
           Wrapper-first adapter for Anthropic flows and Claude-like events.
         </p>
-        <pre><code>{`python connectors/anthropic/anthropic_connector_demo.py | mova-compact collect --run-dir runs/claude --run-id claude-001 --input -
+        <pre><code>{`python connectors/anthropic/anthropic_connector_demo.py \
+  | mova-compact collect --run-dir runs/claude --run-id claude-001 --input -
 mova-compact expand --run-dir runs/claude`}</code></pre>
         <a href="https://github.com/mova-compact/mova/tree/main/connectors/anthropic" target="_blank" rel="noopener" class="integration-link">
           Open Claude Connector
@@ -41,11 +43,12 @@ mova-compact expand --run-dir runs/claude`}</code></pre>
       </div>
 
       <div class="card integration-card">
-        <h3 class="integration-title">4) Codex / OpenAI Connector</h3>
+        <h3 class="integration-title">Codex / OpenAI Connector</h3>
         <p class="integration-desc">
           Adapter for OpenAI/Codex-style tool events with the same collector contract.
         </p>
-        <pre><code>{`python connectors/openai/openai_connector_demo.py | mova-compact collect --run-dir runs/codex --run-id codex-001 --input -
+        <pre><code>{`python connectors/openai/openai_connector_demo.py \
+  | mova-compact collect --run-dir runs/codex --run-id codex-001 --input -
 mova-compact expand --run-dir runs/codex`}</code></pre>
         <a href="https://github.com/mova-compact/mova/tree/main/connectors/openai" target="_blank" rel="noopener" class="integration-link">
           Open Codex/OpenAI Connector
@@ -56,7 +59,9 @@ mova-compact expand --run-dir runs/codex`}</code></pre>
 </section>
 
 <style>
-  .integration-grid {
+  .integration-flow {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
   }
 
@@ -64,6 +69,7 @@ mova-compact expand --run-dir runs/codex`}</code></pre>
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
+    min-width: 0;
   }
 
   .integration-title {
