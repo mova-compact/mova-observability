@@ -1,0 +1,92 @@
+---
+---
+
+<section id="integrations" class="section">
+  <div class="container">
+    <h2 class="section-title">Agent Integrations</h2>
+    <p class="section-subtitle">
+      Practical wiring: binary collector to agent output, OTel time-axis join, and ready connector paths for Claude and Codex.
+    </p>
+
+    <div class="grid-2 integration-grid">
+      <div class="card integration-card">
+        <h3 class="integration-title">1) Binary To Agent Stream</h3>
+        <p class="integration-desc">
+          Send one semantic JSON object per line from your agent to stdout, then pipe directly into MOVA Compact.
+        </p>
+        <pre><code>{`python my_agent.py | mova-compact collect --run-dir runs/agent --run-id agent-001 --input -
+mova-compact expand --run-dir runs/agent`}</code></pre>
+      </div>
+
+      <div class="card integration-card">
+        <h3 class="integration-title">2) OTel Time Axis Join</h3>
+        <p class="integration-desc">
+          Export OTel-derived time journal to JSONL and join it with the semantic compact run.
+        </p>
+        <pre><code>{`python export_otel_jsonl.py --service my-agent --out otel_time.jsonl
+mova-compact join --run-dir runs/agent --time otel_time.jsonl
+mova-compact verify --run-dir runs/agent`}</code></pre>
+      </div>
+
+      <div class="card integration-card">
+        <h3 class="integration-title">3) Claude Connector</h3>
+        <p class="integration-desc">
+          Wrapper-first adapter for Anthropic flows and Claude-like events.
+        </p>
+        <pre><code>{`python connectors/anthropic/anthropic_connector_demo.py | mova-compact collect --run-dir runs/claude --run-id claude-001 --input -
+mova-compact expand --run-dir runs/claude`}</code></pre>
+        <a href="https://github.com/mova-compact/mova/tree/main/connectors/anthropic" target="_blank" rel="noopener" class="integration-link">
+          Open Claude Connector
+        </a>
+      </div>
+
+      <div class="card integration-card">
+        <h3 class="integration-title">4) Codex / OpenAI Connector</h3>
+        <p class="integration-desc">
+          Adapter for OpenAI/Codex-style tool events with the same collector contract.
+        </p>
+        <pre><code>{`python connectors/openai/openai_connector_demo.py | mova-compact collect --run-dir runs/codex --run-id codex-001 --input -
+mova-compact expand --run-dir runs/codex`}</code></pre>
+        <a href="https://github.com/mova-compact/mova/tree/main/connectors/openai" target="_blank" rel="noopener" class="integration-link">
+          Open Codex/OpenAI Connector
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .integration-grid {
+    gap: 1rem;
+  }
+
+  .integration-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .integration-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .integration-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .integration-link {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .integration-link:hover {
+    color: var(--accent-hover);
+  }
+
+  .integration-card pre {
+    margin: 0;
+  }
+</style>

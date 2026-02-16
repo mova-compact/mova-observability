@@ -47,7 +47,29 @@ mova-compact join --run-dir runs/demo --time otel_time.jsonl
 mova-compact verify --run-dir runs/demo
 ```
 
-## 4. Inspect output
+## 4. OTel time-axis integration
+
+```bash
+# Export OTel-derived timeline to JSONL, then join:
+python export_otel_jsonl.py --service my-agent --out otel_time.jsonl
+mova-compact join --run-dir runs/demo --time otel_time.jsonl
+```
+
+## 5. Claude and Codex connectors
+
+```bash
+# Claude / Anthropic connector demo
+python connectors/anthropic/anthropic_connector_demo.py | mova-compact collect --run-dir runs/claude --run-id claude-001 --input -
+
+# Codex / OpenAI connector demo
+python connectors/openai/openai_connector_demo.py | mova-compact collect --run-dir runs/codex --run-id codex-001 --input -
+```
+
+Connector sources:
+- Claude / Anthropic: https://github.com/mova-compact/mova/tree/main/connectors/anthropic
+- Codex / OpenAI: https://github.com/mova-compact/mova/tree/main/connectors/openai
+
+## 6. Inspect output
 
 ```bash
 cat runs/demo/reports/merged_journal.jsonl | head -3
