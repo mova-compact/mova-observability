@@ -71,8 +71,7 @@ python connectors/openai/openai_connector_demo.py
 ```
 
 Connector sources:
-- Claude / Anthropic: https://github.com/mova-compact/mova/tree/main/connectors/anthropic
-- Codex / OpenAI: https://github.com/mova-compact/mova/tree/main/connectors/openai
+- Connector pack download: https://github.com/mova-compact/mova-downloads/releases/latest/download/mova-connectors-python.zip
 
 ## 7. Inspect output
 

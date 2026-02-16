@@ -7,7 +7,7 @@ const VERSION = "latest";
   <div class="container">
     <h2 class="section-title">Download</h2>
     <p class="section-subtitle">
-      Single executable, no dependencies. Pick your platform.
+      Binary core and connector pack are delivered separately.
     </p>
 
     <div class="card download-card">
@@ -64,6 +64,17 @@ Get-FileHash .\\mova-compact.exe -Algorithm SHA256`}</code></pre>
         <a href={`https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt`} class="btn btn-outline btn-sm">
           SHA256SUMS
         </a>
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-connectors-python.zip`} class="btn btn-outline btn-sm">
+          Connectors Pack (.zip)
+        </a>
+      </div>
+
+      <div class="connector-pack-note">
+        <p>
+          <strong>Connector pack:</strong> includes Python adapters for Claude (Anthropic) and Codex/OpenAI plus shared utilities.
+        </p>
+        <pre><code>{`curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/mova-connectors-python.zip -o mova-connectors-python.zip
+unzip mova-connectors-python.zip`}</code></pre>
       </div>
     </div>
   </div>
@@ -100,5 +111,17 @@ Get-FileHash .\\mova-compact.exe -Algorithm SHA256`}</code></pre>
   .btn-sm {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;
+  }
+
+  .connector-pack-note {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .connector-pack-note p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
   }
 </style>
