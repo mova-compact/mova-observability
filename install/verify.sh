@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CHECKSUMS_URL="https://raw.githubusercontent.com/mova-compact/mova-compact/main/checksums/SHA256SUMS.txt"
+CHECKSUMS_URL="https://github.com/mova-compact/mova-downloads/releases/latest/download/SHA256SUMS.txt"
 BINARY="${1:-$(command -v mova-compact)}"
 
 if [ ! -f "$BINARY" ]; then

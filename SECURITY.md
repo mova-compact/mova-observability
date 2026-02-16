@@ -18,15 +18,17 @@
 
 ## Binary Verification
 
-Every release includes SHA256 checksums in `checksums/SHA256SUMS.txt`.
+Every release includes `SHA256SUMS.txt` as a release asset.
 
 Verify after download:
 
 ```bash
 # Linux/macOS
+curl -fsSL https://github.com/mova-compact/mova-downloads/releases/latest/download/SHA256SUMS.txt -o SHA256SUMS.txt
 sha256sum -c SHA256SUMS.txt
 
 # Windows PowerShell
+Invoke-WebRequest -Uri "https://github.com/mova-compact/mova-downloads/releases/latest/download/SHA256SUMS.txt" -OutFile ".\SHA256SUMS.txt"
 Get-FileHash mova-compact.exe -Algorithm SHA256
 ```
 

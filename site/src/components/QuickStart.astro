@@ -9,21 +9,18 @@
     </p>
 
     <div class="card quickstart-card">
-      <pre><code>{`# 1. Start observation run
-mova-compact observe start --run-dir runs/my-run --run-id my-run-001
+      <pre><code>{`# 1. Connect your agent output to MOVA Compact
+# Agent emits semantic JSONL (one object per line) to stdout
+python my_agent_with_mova_adapter.py | mova-compact collect --run-dir runs/my-run --run-id my-run-001 --input -
 
-# 2. Record semantic events
-mova-compact observe record --run-dir runs/my-run --input semantic.jsonl
-
-# 3. Finish and expand
-mova-compact observe finish --run-dir runs/my-run
+# 2. Expand compact payload to JSONL
 mova-compact expand --run-dir runs/my-run
 
-# 4. Join with time data and verify
+# 3. Join with time-axis journal and verify
 mova-compact join --run-dir runs/my-run --time otel_time.jsonl
 mova-compact verify --run-dir runs/my-run
 
-# 5. Inspect the result
+# 4. Inspect correlated evidence
 cat runs/my-run/reports/merged_journal.jsonl | head -3`}</code></pre>
 
       <div class="output-preview">

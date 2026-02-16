@@ -1,5 +1,5 @@
 ---
-const REPO = "mova-compact/mova-compact";
+const REPO = "mova-compact/mova-downloads";
 const VERSION = "latest";
 ---
 
@@ -19,30 +19,32 @@ const VERSION = "latest";
 
       <div class="tab-panel" id="panel-linux" data-active>
         <pre><code>{`# Download & install
-curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-linux.zip -o mova-compact.zip
-unzip mova-compact.zip && chmod +x mova-compact
-sudo mv mova-compact /usr/local/bin/
+curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-linux -o mova-compact
+chmod +x mova-compact
+sudo mv mova-compact /usr/local/bin/mova-compact
+curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt -o SHA256SUMS.txt
 
 # Verify
 mova-compact --version
-sha256sum mova-compact`}</code></pre>
+sha256sum /usr/local/bin/mova-compact`}</code></pre>
       </div>
 
       <div class="tab-panel" id="panel-macos">
         <pre><code>{`# Download & install
-curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-macos.zip -o mova-compact.zip
-unzip mova-compact.zip && chmod +x mova-compact
-sudo mv mova-compact /usr/local/bin/
+curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-macos -o mova-compact
+chmod +x mova-compact
+sudo mv mova-compact /usr/local/bin/mova-compact
+curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt -o SHA256SUMS.txt
 
 # Verify
 mova-compact --version
-shasum -a 256 mova-compact`}</code></pre>
+shasum -a 256 /usr/local/bin/mova-compact`}</code></pre>
       </div>
 
       <div class="tab-panel" id="panel-windows">
-        <pre><code>{`# Download & extract (PowerShell)
-Invoke-WebRequest -Uri "https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-windows.zip" -OutFile mova-compact.zip
-Expand-Archive mova-compact.zip -DestinationPath .
+        <pre><code>{`# Download (PowerShell)
+Invoke-WebRequest -Uri "https://github.com/${REPO}/releases/${VERSION}/download/mova-compact.exe" -OutFile ".\\mova-compact.exe"
+Invoke-WebRequest -Uri "https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt" -OutFile ".\\SHA256SUMS.txt"
 
 # Verify
 .\\mova-compact.exe --version
@@ -50,14 +52,17 @@ Get-FileHash .\\mova-compact.exe -Algorithm SHA256`}</code></pre>
       </div>
 
       <div class="download-links">
-        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-linux.zip`} class="btn btn-outline btn-sm">
-          Linux (.zip)
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-linux`} class="btn btn-outline btn-sm">
+          Linux Binary
         </a>
-        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-macos.zip`} class="btn btn-outline btn-sm">
-          macOS (.zip)
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-macos`} class="btn btn-outline btn-sm">
+          macOS Binary
         </a>
-        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact-windows.zip`} class="btn btn-outline btn-sm">
-          Windows (.zip)
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/mova-compact.exe`} class="btn btn-outline btn-sm">
+          Windows EXE
+        </a>
+        <a href={`https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt`} class="btn btn-outline btn-sm">
+          SHA256SUMS
         </a>
       </div>
     </div>

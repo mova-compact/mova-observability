@@ -17,9 +17,9 @@ MOVA Compact takes two JSONL inputs (time events + semantic events), correlates 
 | Property | Guarantee |
 |----------|-----------|
 | Determinism | Same input → same output (SHA256 verified) |
-| Compression | 10-16x smaller compact representation |
+| Compression | 13.81x-16.18x on published proof runs |
 | Integrity | CRC32 + SHA256 on all artifacts |
-| Vendor-agnostic | Proven on Codex + Claude Code |
+| Vendor-agnostic | Vendor-independent contract, validated on Codex + Claude Code |
 | Privacy | No network calls, local-only processing |
 
 ## Output Artifacts

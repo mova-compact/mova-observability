@@ -17,6 +17,6 @@ Write-Host "SHA256: $Hash"
 
 Write-Host ""
 Write-Host "Compare against official checksums at:"
-Write-Host "  https://raw.githubusercontent.com/mova-compact/mova-compact/main/checksums/SHA256SUMS.txt"
+Write-Host "  https://github.com/mova-compact/mova-downloads/releases/latest/download/SHA256SUMS.txt"
 Write-Host ""
 Write-Host "Verification complete."

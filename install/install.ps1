@@ -1,18 +1,13 @@
 $ErrorActionPreference = "Stop"
 
-$Repo = "mova-compact/mova-compact"
-$Asset = "mova-compact-windows.zip"
+$Repo = "mova-compact/mova-downloads"
+$Asset = "mova-compact.exe"
 $Url = "https://github.com/$Repo/releases/latest/download/$Asset"
 $InstallDir = "$env:LOCALAPPDATA\mova-compact"
 
 Write-Host "Downloading MOVA Compact for Windows..."
 New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
-$ZipPath = Join-Path $InstallDir $Asset
-Invoke-WebRequest -Uri $Url -OutFile $ZipPath
-
-Write-Host "Extracting..."
-Expand-Archive -Path $ZipPath -DestinationPath $InstallDir -Force
-Remove-Item $ZipPath
+Invoke-WebRequest -Uri $Url -OutFile (Join-Path $InstallDir $Asset)
 
 $ExePath = Join-Path $InstallDir "mova-compact.exe"
 if (-not (Test-Path $ExePath)) {

@@ -2,9 +2,9 @@
 const steps = [
   {
     num: "01",
-    title: "Observe",
-    desc: "Capture semantic events during agent execution. Feed time-axis data from OTel or any structured source.",
-    cmd: "mova-compact observe start --run-dir runs/demo",
+    title: "Collect",
+    desc: "Pipe semantic events from your running agent directly into compact binary. Time-axis data comes from OTel or any structured JSONL source.",
+    cmd: "python my_agent.py | mova-compact collect --run-dir runs/demo --run-id demo --input -",
   },
   {
     num: "02",
@@ -25,7 +25,7 @@ const steps = [
   <div class="container">
     <h2 class="section-title">How It Works</h2>
     <p class="section-subtitle">
-      Three commands. From raw logs to verified evidence.
+      Collect, join, verify. From raw logs to evidence in minutes.
     </p>
     <div class="steps">
       {steps.map((s) => (
