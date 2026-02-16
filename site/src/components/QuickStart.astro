@@ -5,40 +5,49 @@
   <div class="container">
     <h2 class="section-title">Quick Start (Sequential)</h2>
     <p class="section-subtitle">
-      End-to-end order: collect semantic axis from agent, add OTel time axis, join, verify, inspect.
+      Codex-first runbook: sanity check, collect, expand, OTel join, verify, and PASS criteria.
     </p>
 
     <div class="card quickstart-card">
-      <pre><code>{`# 1) Collect semantic axis from your agent
-# Option A: Claude / Anthropic connector
-python connectors/anthropic/anthropic_connector_demo.py \
-  | mova-compact collect --run-dir runs/my-run --run-id my-run-001 --input -
-# Option B: Codex / OpenAI connector
-# python connectors/openai/openai_connector_demo.py \
-#   | mova-compact collect --run-dir runs/my-run --run-id my-run-001 --input -
+      <pre><code>{`# 1) Quick sanity (binary is callable)
+mova-compact -h
+mova-compact collect -h
 
-# 2) Expand compact payload to JSONL
-mova-compact expand --run-dir runs/my-run
+# 2) Codex/OpenAI demo pipeline (copy-paste ready)
+python connectors/openai/openai_connector_demo.py \
+  | mova-compact collect --run-dir runs/o1 --run-id o1 --input - --strict
+mova-compact expand --run-dir runs/o1
 
-# 3) Export OTel time-axis JSONL (from your telemetry pipeline)
+# 3) OTel time-axis export
 python export_otel_jsonl.py --service my-agent --out otel_time.jsonl
 
-# 4) Join semantic + time axes
-mova-compact join --run-dir runs/my-run --time otel_time.jsonl
+# 4) Join + verify
+mova-compact join --run-dir runs/o1 --time otel_time.jsonl
+mova-compact verify --run-dir runs/o1
 
-# 5) Verify determinism and integrity gates
-mova-compact verify --run-dir runs/my-run
-
-# 6) Inspect correlated evidence
-cat runs/my-run/reports/merged_journal.jsonl | head -3`}</code></pre>
+# 5) Read actual outputs
+cat runs/o1/outputs/final_observation.jsonl | head -3
+cat runs/o1/outputs/summary.json
+cat runs/o1/outputs/sanity_controls.json`}</code></pre>
 
       <div class="output-preview">
-        <span class="output-label">Sample output (merged_journal.jsonl)</span>
-        <pre><code>{`{"type":"match","event_id":"E000001","step_id":"E000001",
- "confidence":0.93,"ambiguity_flag":false,
- "event":{"ts_start":2.0,"ts_end":2.001,"tool_name":"file_history"},
- "semantic":{"run_id":"my-run-001","tool_name":"file_history",
-  "decision_kind":"file-history-snapshot"}}`}</code></pre>
+        <span class="output-label">PASS Criteria</span>
+        <pre><code>{`verify -> status: ok
+outputs/summary.json:
+  coverage ~= 1.0
+  unmatched_semantic = 0
+  unmatched_time = 0
+outputs/sanity_controls.json:
+  gate_passed = true`}</code></pre>
+      </div>
+
+      <div class="output-preview">
+        <span class="output-label">Codex One-Shot Task</span>
+        <pre><code>{`codex exec "Read this landing runbook, run MOVA quickstart end-to-end in /tmp/mova_eval, and report:
+1) verify status
+2) coverage from outputs/summary.json
+3) gate_passed from outputs/sanity_controls.json
+4) any command mismatch in the docs."`}</code></pre>
       </div>
     </div>
   </div>

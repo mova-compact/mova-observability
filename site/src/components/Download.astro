@@ -25,7 +25,8 @@ sudo mv mova-compact /usr/local/bin/mova-compact
 curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt -o SHA256SUMS.txt
 
 # Verify
-mova-compact --version
+mova-compact -h
+mova-compact collect -h
 sha256sum /usr/local/bin/mova-compact`}</code></pre>
       </div>
 
@@ -37,7 +38,8 @@ sudo mv mova-compact /usr/local/bin/mova-compact
 curl -fsSL https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt -o SHA256SUMS.txt
 
 # Verify
-mova-compact --version
+mova-compact -h
+mova-compact collect -h
 shasum -a 256 /usr/local/bin/mova-compact`}</code></pre>
       </div>
 
@@ -47,7 +49,8 @@ Invoke-WebRequest -Uri "https://github.com/${REPO}/releases/${VERSION}/download/
 Invoke-WebRequest -Uri "https://github.com/${REPO}/releases/${VERSION}/download/SHA256SUMS.txt" -OutFile ".\\SHA256SUMS.txt"
 
 # Verify
-.\\mova-compact.exe --version
+.\\mova-compact.exe -h
+.\\mova-compact.exe collect -h
 Get-FileHash .\\mova-compact.exe -Algorithm SHA256`}</code></pre>
       </div>
 

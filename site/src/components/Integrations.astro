@@ -14,8 +14,11 @@
         <p class="integration-desc">
           Send one semantic JSON object per line from your agent to stdout, then pipe directly into MOVA Compact.
         </p>
-        <pre><code>{`python my_agent.py \
-  | mova-compact collect --run-dir runs/agent --run-id agent-001 --input -
+        <pre><code>{`mova-compact -h
+mova-compact collect -h
+
+python my_agent.py \
+  | mova-compact collect --run-dir runs/agent --run-id agent-001 --input - --strict
 mova-compact expand --run-dir runs/agent`}</code></pre>
       </div>
 
@@ -35,7 +38,7 @@ mova-compact verify --run-dir runs/agent`}</code></pre>
           Wrapper-first adapter for Anthropic flows and Claude-like events.
         </p>
         <pre><code>{`python connectors/anthropic/anthropic_connector_demo.py \
-  | mova-compact collect --run-dir runs/claude --run-id claude-001 --input -
+  | mova-compact collect --run-dir runs/claude --run-id claude-001 --input - --strict
 mova-compact expand --run-dir runs/claude`}</code></pre>
         <a href="https://github.com/mova-compact/mova-downloads/releases/latest/download/mova-connectors-python.zip" target="_blank" rel="noopener" class="integration-link">
           Download Connectors Pack
@@ -48,7 +51,7 @@ mova-compact expand --run-dir runs/claude`}</code></pre>
           Adapter for OpenAI/Codex-style tool events with the same collector contract.
         </p>
         <pre><code>{`python connectors/openai/openai_connector_demo.py \
-  | mova-compact collect --run-dir runs/codex --run-id codex-001 --input -
+  | mova-compact collect --run-dir runs/codex --run-id codex-001 --input - --strict
 mova-compact expand --run-dir runs/codex`}</code></pre>
         <a href="https://github.com/mova-compact/mova-downloads/releases/latest/download/mova-connectors-python.zip" target="_blank" rel="noopener" class="integration-link">
           Download Connectors Pack

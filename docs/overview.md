@@ -25,8 +25,8 @@ MOVA Compact takes two JSONL inputs (time events + semantic events), correlates 
 ## Output Artifacts
 
 Each run produces:
-- `join/join_map.jsonl` — correlation mapping
-- `join/join.stats.json` — coverage and confidence metrics
-- `reports/merged_journal.jsonl` — final evidence pairs
-- `reports/summary.json` — deterministic KPI summary
-- `reports/sanity_controls.json` — negative control results
+- `outputs/final_observation.jsonl` — final correlated evidence rows
+- `outputs/summary.json` — coverage and deterministic KPI summary
+- `outputs/sanity_controls.json` — negative control gate result
+- `outputs/determinism.sha256` — deterministic hash checkpoint
+- `outputs/compact_expanded.jsonl` — expanded compact rows

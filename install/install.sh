@@ -33,6 +33,7 @@ sudo mv "${TMP}/${ASSET}" "${INSTALL_DIR}/mova-compact"
 rm -rf "$TMP"
 
 echo "Verifying..."
-mova-compact --version
+mova-compact -h
+mova-compact collect -h
 
 echo "MOVA Compact installed successfully."

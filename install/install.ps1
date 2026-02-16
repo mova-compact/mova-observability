@@ -23,6 +23,7 @@ if ($UserPath -notlike "*$InstallDir*") {
 }
 
 Write-Host "Verifying..."
-& $ExePath --version
+& $ExePath -h
+& $ExePath collect -h
 
 Write-Host "MOVA Compact installed successfully."
