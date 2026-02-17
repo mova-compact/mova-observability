@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 
 const contactEmail = import.meta.env.PUBLIC_SDK_CONTACT_EMAIL ?? "mail.mova@gmx.de";
 const configuredEndpoint = (import.meta.env.PUBLIC_SDK_FORM_ENDPOINT ?? "").trim();
-const defaultFormEndpoint = `https://formsubmit.co/ajax/${contactEmail}`;
+const defaultFormEndpoint = `https://formspree.io/f/${contactEmail}`;
 const formEndpoint = configuredEndpoint || defaultFormEndpoint;
 ---
 
@@ -23,6 +23,8 @@ const formEndpoint = configuredEndpoint || defaultFormEndpoint;
       </p>
 
       <form class="card sdk-form" data-sdk-form data-endpoint={formEndpoint} novalidate>
+        <input class="sdk-honeypot" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
         <div class="form-row">
           <label for="fullName">Full name</label>
           <input id="fullName" name="fullName" type="text" autocomplete="name" />
@@ -217,21 +219,6 @@ const formEndpoint = configuredEndpoint || defaultFormEndpoint;
       return valid;
     };
 
-    const getFormSummary = () => {
-      const data = new FormData(form);
-      return [
-        `Full name: ${data.get("fullName") || ""}`,
-        `Work email: ${data.get("workEmail") || ""}`,
-        `Company: ${data.get("company") || ""}`,
-        `Role: ${data.get("role") || ""}`,
-        `Use case: ${data.get("useCase") || ""}`,
-        `Current stack: ${data.get("stack") || ""}`,
-        `Timeline: ${data.get("timeline") || ""}`,
-        `Need custom dictionaries: ${data.get("customDictionaries") || ""}`,
-        `Consent: ${data.get("consent") ? "Yes" : "No"}`,
-      ].join("\n");
-    };
-
     const showSuccess = () => {
       form.hidden = true;
       successBlock.hidden = false;
@@ -251,36 +238,39 @@ const formEndpoint = configuredEndpoint || defaultFormEndpoint;
       track("sdk_access_form_submit");
 
       try {
-        if (endpoint) {
-          const payload = new FormData(form);
-          if (endpoint.includes("formsubmit.co")) {
-            payload.set("_subject", "MOVA Production SDK Early Access Request");
-            payload.set("_template", "table");
-            payload.set("_captcha", "false");
-            const replyTo = payload.get("workEmail");
-            if (replyTo) {
-              payload.set("_replyto", String(replyTo));
-            }
-          }
+        if (!endpoint) {
+          throw new Error("Form endpoint is not configured.");
+        }
 
-          const response = await fetch(endpoint, {
-            method: "POST",
-            body: payload,
-            headers: { Accept: "application/json" },
-          });
-          if (!response.ok) {
-            throw new Error(`Form endpoint returned ${response.status}`);
-          }
-        } else {
-          const subject = encodeURIComponent("MOVA Production SDK Early Access Request");
-          const body = encodeURIComponent(getFormSummary());
-          window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+        const payload = new FormData(form);
+        payload.set("_subject", "MOVA Production SDK Early Access Request");
+        const replyTo = payload.get("workEmail");
+        if (replyTo) {
+          payload.set("_replyto", String(replyTo));
+        }
+
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: payload,
+          headers: { Accept: "application/json" },
+        });
+
+        let result = null;
+        try {
+          result = await response.json();
+        } catch (_parseError) {
+        }
+
+        if (!response.ok) {
+          const providerMessage = result?.errors?.[0]?.message || result?.error || `Form endpoint returned ${response.status}`;
+          throw new Error(providerMessage);
         }
 
         showSuccess();
         track("sdk_access_form_success");
-      } catch (_error) {
-        formError.textContent = `Could not submit right now. Please email ${contactEmail}.`;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Could not submit right now.";
+        formError.textContent = `${message} Please email ${contactEmail}.`;
         track("sdk_access_form_error", { type: "submit" });
       } finally {
         setSubmitting(false);
@@ -416,6 +406,15 @@ const formEndpoint = configuredEndpoint || defaultFormEndpoint;
   .submit-btn:disabled {
     opacity: 0.65;
     cursor: not-allowed;
+  }
+
+  .sdk-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .sdk-success {
